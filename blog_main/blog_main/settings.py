@@ -29,14 +29,19 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+## 앱을 추가하여, 사용하는 형태
 INSTALLED_APPS = [
+    ## 기본사항
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    ## 추가 사항
+    'blog',
+    'single_pages',
 ]
 
 MIDDLEWARE = [
@@ -105,13 +110,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# 본인 컴퓨터의 시간대에 맞춰서 보여주는 기능.
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

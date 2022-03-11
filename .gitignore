@@ -131,8 +131,11 @@ dmypy.json
 
 # Update gitIgnore
 
-#MacBook(DS_Store) 추가
+# MacBook(DS_Store) 추가
 .DS_Stroe
 
-#pyCharm 설정파일
+# pyCharm 설정파일
 .idea/
+
+# Django files migration파일
+migrations/
