@@ -133,3 +133,6 @@ dmypy.json
 
 #MacBook(DS_Store) 추가
 .DS_Stroe
+
+#pyCharm 설정파일
+.idea/
