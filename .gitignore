@@ -132,7 +132,7 @@ dmypy.json
 # Update gitIgnore
 
 # MacBook(DS_Store) 추가
-.DS_Stroe
+.DS_Store
 
 # pyCharm 설정파일
 .idea/
