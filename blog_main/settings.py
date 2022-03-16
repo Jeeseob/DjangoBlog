@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8+keqa#p^tvuzs+257lbs!$rr0if6*(@+-z)mk$b8hh#iye3fx'
+SECRET_KEY = '1!g1&)iteqkx*#*tztkxuv6-tx#c1_o6n7uh+qc-k@mc#@@m53'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,9 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-## 앱을 추가하여, 사용하는 형태
+
 INSTALLED_APPS = [
-    ## 기본사항
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    ## 추가 사항
+    ## 추가 앱
     'blog',
     'single_pages',
+
 ]
 
 MIDDLEWARE = [
@@ -116,7 +116,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-# 본인 컴퓨터의 시간대에 맞춰서 보여주는 기능.
+# 본인 컴퓨터의 시간대에 맞춰서 보여주는 기능. 본 프로젝트에선 어처피 서울이라서 끔.
 USE_TZ = False
 
 
