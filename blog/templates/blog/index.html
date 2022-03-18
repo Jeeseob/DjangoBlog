@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Blog</title>
 </head>
 <body>
@@ -9,7 +9,7 @@
     <!-- 장고 템플릿 언어/ 중요하진 않음-->
     {% for post in posts %}
         <hr/> <!-- 줄 긋는 것 -->
-        <h2>{{ post.title }}</h2>
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
         <h4>{{ post.create_at }}</h4>
         <p>{{ post.content }}</p>
     {%  endfor %}

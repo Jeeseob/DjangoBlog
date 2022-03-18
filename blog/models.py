@@ -15,6 +15,12 @@ class Post(models.Model) :
         # {}안에 변수를 넣으면, 해당 변수의 값이 나온다.
         return f'[{self.pk}] {self.title}'
 
+    # 인터페이슬로 만들어져 있음.
+    # Convention over configuration 이라고, 정해진 이름을 함수를 만들면, 일반적인 기능이 자동으로 추가된다.
+
+    def get_absolute_url(self):
+        return f'/blog/{self.pk}'
+
 ## DB의 테이블 선언 느낌으로 객체 생성(Model) ORM 방식
 ## DB 생성 후, makemigrations를 통해 DB에 적용할 수 있다.
 ## 이후 migrate로 실제로 적용할 수 있다.
