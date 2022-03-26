@@ -8,7 +8,6 @@ from django.views.generic import ListView, DetailView
 # url패턴에서 실행하는 함수
 from blog.models import Post
 
-
 # class based views (CBV)
 class PostList(ListView):
     model = Post  # 모델 객체 설정
