@@ -139,3 +139,6 @@ dmypy.json
 
 # Django files migration파일
 migrations/
+
+# user uploadFile 제거
+_media/
