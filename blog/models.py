@@ -1,3 +1,5 @@
+import os.path
+
 from django.db import models
 
 # Create your models here.
@@ -6,7 +8,7 @@ class Post(models.Model) :
     title = models.CharField(max_length=30) # 제목
     content = models.TextField() # 내용
     head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True) # upload_to는 디렉토리 지정, blank는 없어도
-    attached_files = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
+    attached_file = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
 
     create_at = models.DateTimeField(auto_now_add=True) # 업로드 날짜 : auto_now_add는 최초 생성시에만 적용
     update_at = models.DateTimeField(auto_now=True) # auto_now는 업데이트 될 때마다 수정
@@ -22,6 +24,9 @@ class Post(models.Model) :
 
     def get_absolute_url(self):
         return f'/blog/{self.pk}'
+
+    def get_file_name(self):
+        return os.path.basename(self.attached_file.name)
 
 ## DB의 테이블 선언 느낌으로 객체 생성(Model) ORM 방식
 ## DB 생성 후, makemigrations를 통해 DB에 적용할 수 있다.
