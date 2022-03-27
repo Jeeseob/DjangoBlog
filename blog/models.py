@@ -2,16 +2,19 @@ import os.path
 
 from django.db import models
 
+
 # Create your models here.
 
-class Post(models.Model) :
-    title = models.CharField(max_length=30) # 제목
-    content = models.TextField() # 내용
-    head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True) # upload_to는 디렉토리 지정, blank는 없어도
+class Post(models.Model):
+    title = models.CharField(max_length=30)  # 제목
+    content = models.TextField()  # 내용
+    hook_message = models.TextField(blank=True)  # 미리보기 내용
+
+    head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)  # upload_to는 디렉토리 지정, blank는 없어도
     attached_file = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
 
-    create_at = models.DateTimeField(auto_now_add=True) # 업로드 날짜 : auto_now_add는 최초 생성시에만 적용
-    update_at = models.DateTimeField(auto_now=True) # auto_now는 업데이트 될 때마다 수정
+    create_at = models.DateTimeField(auto_now_add=True)  # 업로드 날짜 : auto_now_add는 최초 생성시에만 적용
+    update_at = models.DateTimeField(auto_now=True)  # auto_now는 업데이트 될 때마다 수정
 
     def __str__(self):
         # f는 formated string형태, python 기능.
