@@ -6,6 +6,13 @@ from django.db import models
 
 # Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)  # unique: 같은 이름을 가진 카테고리를 만들지 못하도록 설정
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True) # url의 주소를 만들어주는 Slug, 한글 Url(Slug)을 사용하고 싶다면, unicode를 허용해야한다.
+
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=30)  # 제목
