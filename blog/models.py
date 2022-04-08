@@ -16,6 +16,9 @@ class Post(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)  # 업로드 날짜 : auto_now_add는 최초 생성시에만 적용
     update_at = models.DateTimeField(auto_now=True)  # auto_now는 업데이트 될 때마다 수정
 
+    # post와 one to many relationship으로 연결 (
+    author = models.ForeignKey(User, on_delete=models.CASCADE()) # on_delete(유저를 제거하면, 글도 사라지도록 설정)
+
     def __str__(self):
         # f는 formated string형태, python 기능.
         # '' 내부의 내용을 알맞은 포멧에 맞춰 데이터를 가져온다.
