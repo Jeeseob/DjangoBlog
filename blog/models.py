@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Post(models.Model):
     title = models.CharField(max_length=30)  # 제목
     content = models.TextField()  # 내용
@@ -18,7 +19,10 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True)  # auto_now는 업데이트 될 때마다 수정
 
     # post와 one to many relationship으로 연결 (
-    author = models.ForeignKey(User, on_delete=models.CASCADE) # on_delete(유저를 제거하면, 글도 사라지도록 설정)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) # on_delete(CASCADE : 유저가 삭제되면 제거 , SET_NULL : 빈 값으로, SET_DEFAULT : 지정된 값으로)
+
+    # null, blank --> null은 DB 속성 중 null이 가능한지, blank는
+    # category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         # f는 formated string형태, python 기능.
