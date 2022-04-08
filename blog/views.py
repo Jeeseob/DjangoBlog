@@ -6,16 +6,53 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 # url패턴에서 실행하는 함수
-from blog.models import Post
+from blog.models import Post, Category
+
 
 # class based views (CBV)
 class PostList(ListView):
     model = Post  # 모델 객체 설정
     ordering = '-pk'  # 정렬 방식 설정(pk 역순)
 
+    def get_context_data(self, **kwargs):
+        context = super(PostList, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+
+        return context
+
 
 class PostDetail(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+
+        return context
+
+
+def category_posts(request, slug):
+    category = Category.objects.filter(slug=slug)
+    if slug == 'no-category':
+        category = '미분류'
+        post_list = Post.objects.filter(category=None)
+    else:
+        category = category.get(slug=slug)
+        post_list = Post.objects.filter(category=category)
+
+    context = {
+        'categories': Category.objects.all(),
+        'no_category_post_count': Post.objects.filter(category=None).count(),
+        'category': category,
+        'post_list': post_list
+    }
+    return render(
+        request,
+        'blog/post_list.html',
+        context
+    )
 
 # 템플릿 이름을 강제하는 방법. -> 하지만, name convention에 익숙해진 사람들에게 혼선을 줄 수 있어, 지정한 대로 하는 것이 생산성이 높다.
 # template_name = 'blog/index.html'
@@ -46,6 +83,3 @@ class PostDetail(DetailView):
 #             'post' : post,
 #         }
 #     )
-
-
-

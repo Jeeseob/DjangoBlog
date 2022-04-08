@@ -13,8 +13,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/blog/category/{self.slug}'
+
     class Meta:
         verbose_name_plural = 'Categories'
+
+
 
 
 class Post(models.Model):
@@ -33,6 +38,7 @@ class Post(models.Model):
 
     # null, blank --> null은 DB 속성 중 null이 가능한지, blank는
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
 
     def __str__(self):
         # f는 formated string형태, python 기능.
