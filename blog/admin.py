@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # 현재 디렉토리의 하위 디렉토리인 models에서 Post객체 import
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 # Register your models here.
 
@@ -9,5 +9,9 @@ from .models import Post, Category
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+class TagAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
 admin.site.register(Post)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)

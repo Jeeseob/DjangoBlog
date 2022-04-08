@@ -6,6 +6,20 @@ from django.db import models
 
 # Create your models here.
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/blog/tag/{self.slug}'
+
+    class Meta:
+        verbose_name_plural = 'Tags'
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)  # unique: 같은 이름을 가진 카테고리를 만들지 못하도록 설정
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True) # url의 주소를 만들어주는 Slug, 한글 Url(Slug)을 사용하고 싶다면, unicode를 허용해야한다.
@@ -38,7 +52,7 @@ class Post(models.Model):
 
     # null, blank --> null은 DB 속성 중 null이 가능한지, blank는
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
-
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         # f는 formated string형태, python 기능.
