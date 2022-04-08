@@ -1,7 +1,13 @@
 from django.contrib import admin
 
 # 현재 디렉토리의 하위 디렉토리인 models에서 Post객체 import
-from .models import Post
+from .models import Post, Category
 
 # Register your models here.
+
+# 카테고리 이름을 기반으로 slug을 만들어주는 코드
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
 admin.site.register(Post)
+admin.site.register(Category, CategoryAdmin)

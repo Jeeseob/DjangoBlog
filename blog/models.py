@@ -13,6 +13,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
 
 class Post(models.Model):
     title = models.CharField(max_length=30)  # 제목
@@ -29,7 +32,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) # on_delete(CASCADE : 유저가 삭제되면 제거 , SET_NULL : 빈 값으로, SET_DEFAULT : 지정된 값으로)
 
     # null, blank --> null은 DB 속성 중 null이 가능한지, blank는
-    # category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         # f는 formated string형태, python 기능.
