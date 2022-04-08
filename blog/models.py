@@ -1,5 +1,6 @@
 import os.path
 
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -17,13 +18,13 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True)  # auto_now는 업데이트 될 때마다 수정
 
     # post와 one to many relationship으로 연결 (
-    author = models.ForeignKey(User, on_delete=models.CASCADE()) # on_delete(유저를 제거하면, 글도 사라지도록 설정)
+    author = models.ForeignKey(User, on_delete=models.CASCADE) # on_delete(유저를 제거하면, 글도 사라지도록 설정)
 
     def __str__(self):
         # f는 formated string형태, python 기능.
         # '' 내부의 내용을 알맞은 포멧에 맞춰 데이터를 가져온다.
         # {}안에 변수를 넣으면, 해당 변수의 값이 나온다.
-        return f'[{self.pk}] {self.title}'
+        return f'[{self.pk}] {self.title} :: {self.author}'
 
     # 인터페이슬로 만들어져 있음.
     # Convention over configuration 이라고, 정해진 이름을 함수를 만들면, 일반적인 기능이 자동으로 추가된다.
