@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 # url패턴에서 실행하는 함수
-from blog.models import Post, Category
+from blog.models import Post, Category, Tag
 
 
 # class based views (CBV)
@@ -54,6 +54,21 @@ def category_posts(request, slug):
         context
     )
 
+def show_tag_posts(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    post_list = tag.post_set.all()
+    context = {
+        'categories': Category.objects.all(),
+        'no_category_post_count': Post.objects.filter(category=None).count(),
+        'tag': tag,
+        'post_list': post_list
+    }
+    return render(
+        request,
+        'blog/post_list.html',
+        context
+    )
+    return None
 # 템플릿 이름을 강제하는 방법. -> 하지만, name convention에 익숙해진 사람들에게 혼선을 줄 수 있어, 지정한 대로 하는 것이 생산성이 높다.
 # template_name = 'blog/index.html'
 

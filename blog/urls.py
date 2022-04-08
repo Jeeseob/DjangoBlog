@@ -6,7 +6,8 @@ urlpatterns =[
     # class-based views ( 장고에서 제공하는 것)
     path('', views.PostList.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),
-    path('category/<str:slug>', views.category_posts),
+    path('category/<str:slug>/', views.category_posts),
+    path('tag/<str:slug>/', views.show_tag_posts),
 
 
     # function view (내가 만든 것)
