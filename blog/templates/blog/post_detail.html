@@ -16,24 +16,32 @@
           <a href="#">{{ post.author }}</a>
         </p>
 
-        <hr>
+        <hr/>
+          {% if user.is_authenticated %}
+              {% if user == post.author %}
+                  <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{ post.pk }}/" role="button">
+                      <i class="fas fa-pen"></i>
+                      &nbsp;&nbsp;Edit Post
+                  </a>
+              {% endif %}
+          {% endif %}
 
         <!-- Date/Time -->
         <p>Posted on {{ post.create_at }}</p>
 
-        <hr>
+        <hr/>
 
         <!-- Preview Image -->
           {% if post.head_image %}
               <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt=""/>
           {% endif %}
 
-        <hr>
+        <hr/>
 
         <!-- Post Content -->
         <p>{{ post.content }}</p>
 
-        <hr>
+        <hr/>
 
         <!-- user upload file -->
         {% if post.attached_file %}

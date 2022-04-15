@@ -1,7 +1,8 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 
 # CBV를 사용하기 위함.
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 # url패턴에서 실행하는 함수
 from blog.models import Post, Category, Tag
@@ -9,7 +10,20 @@ from blog.models import Post, Category, Tag
 # 로그인 방문자 접근
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-class PostCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView):
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
+
+    template_name = "blog/post_form_update.html"
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+
+class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
 
@@ -69,6 +83,7 @@ def category_posts(request, slug):
         'blog/post_list.html',
         context
     )
+
 
 def show_tag_posts(request, slug):
     tag = Tag.objects.get(slug=slug)
