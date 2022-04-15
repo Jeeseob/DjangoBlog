@@ -1,12 +1,25 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render, redirect
 
 # CBV를 사용하기 위함.
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 # url패턴에서 실행하는 함수
 from blog.models import Post, Category, Tag
+
+# 로그인 방문자 접근
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid((form))
+        else:
+            return redirect('/blog/')
 
 
 # class based views (CBV)
