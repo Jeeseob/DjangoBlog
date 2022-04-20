@@ -50,7 +50,7 @@ class Post(models.Model):
     # post와 one to many relationship으로 연결 (
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) # on_delete(CASCADE : 유저가 삭제되면 제거 , SET_NULL : 빈 값으로, SET_DEFAULT : 지정된 값으로)
 
-    # null, blank --> null은 DB 속성 중 null이 가능한지, blank는
+    # null, blank --> null은 DB 속성 중 null이 가능한지, blank는 request롤 입력시 빈칸이 가능한지.
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 

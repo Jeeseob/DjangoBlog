@@ -64,12 +64,11 @@ class PostDetail(DetailView):
 
 
 def category_posts(request, slug):
-    category = Category.objects.filter(slug=slug)
     if slug == 'no-category':
         category = '미분류'
         post_list = Post.objects.filter(category=None)
     else:
-        category = category.get(slug=slug)
+        category = Category.objects.get(slug=slug)
         post_list = Post.objects.filter(category=category)
 
     context = {
