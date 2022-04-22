@@ -16,6 +16,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
 
     template_name = "blog/post_form_update.html"
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
             return super(PostUpdate, self).dispatch(request, *args, **kwargs)
@@ -34,7 +35,7 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         current_user = self.request.user
         if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
             form.instance.author = current_user
-            return super(PostCreate, self).form_valid((form))
+            return super(PostCreate, self).form_valid(form)
         else:
             return redirect('/blog')
 
@@ -63,25 +64,44 @@ class PostDetail(DetailView):
         return context
 
 
-def category_posts(request, slug):
-    if slug == 'no-category':
-        category = '미분류'
-        post_list = Post.objects.filter(category=None)
-    else:
-        category = Category.objects.get(slug=slug)
-        post_list = Post.objects.filter(category=category)
+# def category_posts(request, slug):
+#     if slug == 'no-category':
+#         category = '미분류'
+#         post_list = Post.objects.filter(category=None)
+#     else:
+#         category = Category.objects.get(slug=slug)
+#         post_list = Post.objects.filter(category=category)
+#
+#     context = {
+#         'categories': Category.objects.all(),
+#         'no_category_post_count': Post.objects.filter(category=None).count(),
+#         'category': category,
+#         'post_list': post_list
+#     }
+#     return render(
+#         request,
+#         'blog/post_list.html',
+#         context
+#     )
 
-    context = {
-        'categories': Category.objects.all(),
-        'no_category_post_count': Post.objects.filter(category=None).count(),
-        'category': category,
-        'post_list': post_list
-    }
-    return render(
-        request,
-        'blog/post_list.html',
-        context
-    )
+
+class CategoryPostList(ListView):
+    model = Post
+    ordering = '-pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryPostList, self).get_context_data()
+        if self.kwargs['slug'] == 'no-category':
+            context['post_list'] = Post.objects.filter(category__slug=None)
+            context['category'] = '미분류'
+        else:
+            context['post_list'] = Post.objects.filter(category__slug=self.kwargs['slug'])
+            context['category'] = Category.objects.get(slug=self.kwargs['slug'])
+
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+
+        return context
 
 
 def show_tag_posts(request, slug):
@@ -98,7 +118,7 @@ def show_tag_posts(request, slug):
         'blog/post_list.html',
         context
     )
-    return None
+
 # 템플릿 이름을 강제하는 방법. -> 하지만, name convention에 익숙해진 사람들에게 혼선을 줄 수 있어, 지정한 대로 하는 것이 생산성이 높다.
 # template_name = 'blog/index.html'
 

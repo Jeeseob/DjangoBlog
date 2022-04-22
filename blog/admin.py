@@ -5,9 +5,11 @@ from .models import Post, Category, Tag
 
 # Register your models here.
 
+
 # 카테고리 이름을 기반으로 slug을 만들어주는 코드
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+
 
 class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
