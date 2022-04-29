@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # 현재 디렉토리의 하위 디렉토리인 models에서 Post객체 import
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 from markdownx.admin import MarkdownxModelAdmin
 
 # Register your models here.
@@ -19,3 +19,4 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, MarkdownxModelAdmin)
+admin.site.register(Comment)

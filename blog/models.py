@@ -74,6 +74,19 @@ class Post(models.Model):
     def get_content_markdown(self):
         return markdown(self.content)
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url(self):
+        return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+
 ## DB의 테이블 선언 느낌으로 객체 생성(Model) ORM 방식
 ## DB 생성 후, makemigrations를 통해 DB에 적용할 수 있다.
 ## 이후 migrate로 실제로 적용할 수 있다.

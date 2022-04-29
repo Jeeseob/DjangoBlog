@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # CBV를 사용하기 위함.
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -10,10 +10,12 @@ from blog.models import Post, Category, Tag
 # 로그인 방문자 접근
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from .forms import CommentForm
+
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tag']
 
     template_name = "blog/post_form_update.html"
 
@@ -26,7 +28,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
-    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category']
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tag']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -60,6 +62,7 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
 
         return context
 
@@ -118,6 +121,26 @@ def show_tag_posts(request, slug):
         'blog/post_list.html',
         context
     )
+
+
+def new_comment(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+
+        if request.method == "POST":
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
+
+                return redirect(comment.get_absolute_url())
+        else:
+            return redirect(post.get_absolute_url())
+
+    else:
+        raise PermissionDenied
 
 # 템플릿 이름을 강제하는 방법. -> 하지만, name convention에 익숙해진 사람들에게 혼선을 줄 수 있어, 지정한 대로 하는 것이 생산성이 높다.
 # template_name = 'blog/index.html'
