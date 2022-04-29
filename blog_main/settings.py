@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     'blog',
     'single_pages',
 
+    ## 입력 폼
+    'crispy_forms',
+
+    ## 마크다운
+    'markdownx',
+
 ]
 
 MIDDLEWARE = [
@@ -131,3 +137,8 @@ STATIC_URL = '/static/'
 # 유저가 업로드하는 파일 저장 및 위치 지정
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+
+# crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+

@@ -127,7 +127,7 @@ def show_tag_posts(request, slug):
 # def index(request):
 #
 #     # DB에서 object를 가져오는 함수 (model기본 내장인듯)
-#     posts = Post.objects.all().order_by('-pk');
+#     posts = Post.objects.all().order_by('-pk')
 #     # order_by('-pk') -> pk를 역순으로 정렬
 #
 #     return render(

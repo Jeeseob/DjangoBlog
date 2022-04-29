@@ -25,6 +25,7 @@ urlpatterns = [
     # include는 django.urls 라이브러리에 존재한다. import 해줘야함.
     # 해당 패턴을 사용하는 것을 cunsume이라고 한다.
     path('admin/', admin.site.urls),
+    path('markdownx/', include('markdownx.urls')),
     path('', include('single_pages.urls')),
 ]
 
