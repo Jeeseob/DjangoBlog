@@ -27,7 +27,7 @@ SECRET_KEY = '1!g1&)iteqkx*#*tztkxuv6-tx#c1_o6n7uh+qc-k@mc#@@m53'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_main.urls'
@@ -133,6 +134,8 @@ USE_TZ = False
 
 # 루트 경로 설정
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # 유저가 업로드하는 파일 저장 및 위치 지정
 MEDIA_URL = '/media/'
@@ -140,5 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 
 # crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
