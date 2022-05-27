@@ -1,6 +1,6 @@
 ---
 applications:
-- name: jeeseobBlog2
+- name: jeeseobBlog
 buildpack: python_buildpack
 memory: 512M
 instances: 1

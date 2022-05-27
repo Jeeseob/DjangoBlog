@@ -1,0 +1,20 @@
+asgiref @ file:///home/conda/feedstock_root/build_artifacts/asgiref_1642912811357/work
+certifi==2021.10.8
+dj-database-url==0.5.0
+Django @ file:///home/conda/feedstock_root/build_artifacts/django_1643821114197/work
+django-crispy-forms @ file:///home/conda/feedstock_root/build_artifacts/django-crispy-forms_1643108807664/work
+django-markdownx==3.0.1
+importlib-metadata @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_croot-5pqd2z6f/importlib-metadata_1648710902288/work
+Markdown @ file:///home/conda/feedstock_root/build_artifacts/markdown_1637220118004/work
+Pillow==9.0.1
+pipenv==2021.11.23
+psycopg2==2.9.3
+pystache==0.5.4
+pytz==2021.3
+sqlparse @ file:///home/conda/feedstock_root/build_artifacts/sqlparse_1631317292236/work
+static @ file:///home/conda/feedstock_root/build_artifacts/static_1603126488714/work
+typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
+tzdata==2022.1
+waitress==2.1.1
+whitenoise==6.0.0
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1649012893348/work
