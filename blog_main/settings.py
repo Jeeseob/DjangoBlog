@@ -51,6 +51,13 @@ INSTALLED_APPS = [
     ## 마크다운
     'markdownx',
 
+    ## auth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -95,7 +102,7 @@ WSGI_APPLICATION = 'blog_main.wsgi.application'
 #     }
 # }
 
-LOCAL_SQLITE = 'sqlite://' + os.path.abspath(os.path.join(BASE_DIR, 'db.sqlite3'))
+LOCAL_SQLITE = 'sqlite:///' + os.path.abspath(os.path.join(BASE_DIR, 'db.sqlite3'))
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(default=LOCAL_SQLITE)
 
@@ -146,7 +153,19 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 
-# crispy Forms
+# crispy Formsc
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+## alluth
+AUTHENTICATION_BACKENDS =(
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = '/blog/'

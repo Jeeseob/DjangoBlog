@@ -15,7 +15,7 @@ from .forms import CommentForm
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tag']
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tags']
 
     template_name = "blog/post_form_update.html"
 
@@ -28,7 +28,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
-    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tag']
+    fields = ['title', 'hook_message', 'content', 'head_image', 'attached_file', 'category', 'tags']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff

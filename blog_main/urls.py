@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
     path('', include('single_pages.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # 미디어 파일을 위한 urlPattern을 만들어야 한다.
